@@ -10,7 +10,7 @@ def open_csv_file(file_path):
     with open(file_path, mode='r', encoding='utf-8') as f:
         data = csv.reader(f)
         rows = [row for row in data]
-        new_rows = rows[3::]
+        new_rows = rows[0::]
         return [item for i in new_rows for item in i]
 
 
@@ -48,8 +48,9 @@ def open_broswer(url, username, password):
 
 if __name__ == '__main__':
     result = open_csv_file(R'C:\Users\heyij\Desktop\phone500.csv')
-    for i in range(300):
-        open_broswer(R'https://staging-h5-pc-41.nanxinwang.com/v5.10.6/index.php?client=PC#!/login', result[448+i], 123456)
-        print(f"第{i+448}次循环")
+    print(result)
+    # for i in range(300):
+    #     open_broswer(R'https://staging-h5-pc-41.nanxinwang.com/v5.10.6/index.php?client=PC#!/login', result[448+i], 123456)
+    #     print(f"第{i+448}次循环")
 
 
