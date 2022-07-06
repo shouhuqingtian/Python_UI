@@ -26,3 +26,4 @@ def open_csv_file(file_path):
 # 定位元素,传入对象，定位方式，定位路径
 def loc_element(driver, loc, loc_path):
     driver.find_element(loc, loc_path)
+
