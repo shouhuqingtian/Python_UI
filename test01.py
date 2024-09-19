@@ -21,8 +21,3 @@ for _ in range(100):
     fake.android_platform_token(),end ='\t', sep=',')
 """
 
-
-from selenium import webdriver
-
-driver = webdriver.Chrome()
-driver.get('http://192.168.16.50:10006/login?redirect=%2FleaseManagement%2Flease%3Ftype%3Dnav')
