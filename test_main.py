@@ -4,6 +4,8 @@ import time
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from module import get_verification_code
+from module.get_verification_code import screenshots
 
 
 class TestWebsite:
@@ -44,6 +46,7 @@ class TestWebsite:
 
     menu_popup = self.browser.find_element(By.NAME, "password")
     menu_popup.send_keys("air2021")
+    screenshots(self.browser)
     self.browser.find_element(By.NAME, "verifyCode").send_keys("abcd")
     self.browser.find_element(By.CSS_SELECTOR, "button[data-v-fd4e3d70]").click()
 
