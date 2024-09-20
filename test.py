@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import time
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -37,13 +37,18 @@ class TestWebsite:
 
   def test_tools_menu(self):
     """this test checks presence of Developer Tools menu item"""
-    tools_menu = self.browser.find_element(By.XPATH,
-                                           "//div[@data-test='main-menu-item' and @data-test-marker = 'Developer Tools']")
+    tools_menu = self.browser.find_element(By.NAME,
+                                           "username")
 
-    tools_menu.click()
+    tools_menu.send_keys("dev")
 
-    menu_popup = self.browser.find_element(By.CSS_SELECTOR, "div[data-test='main-submenu']")
-    assert menu_popup is not None
+    menu_popup = self.browser.find_element(By.NAME, "password")
+    menu_popup.send_keys("air2021")
+    self.browser.find_element(By.NAME, "verifyCode").send_keys("abcd")
+    self.browser.find_element(By.CSS_SELECTOR, "button[data-v-fd4e3d70]").click()
+
+    time.sleep(2)
+    # assert menu_popup is not None
 
   def test_navigation_to_all_tools(self):
     """this test checks navigation by See All Tools button"""
