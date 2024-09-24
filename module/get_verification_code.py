@@ -5,11 +5,11 @@
 # @File    : get_verification_code.py
 
 import io
-import os
-from lib2to3.pgen2 import driver
-
 from PIL import Image
 
+# from module.chaojiying import Chaojiying_Client
+
+import module.chaojiying
 
 def screenshots(driver):
     """
@@ -17,37 +17,16 @@ def screenshots(driver):
 
   :param driver: WebDriver实例，用于操控浏览器。
   """
-    # 定义固定的保存路径
-    save_path = "../picture/a.jpg"
-
-    # 获取当前文件所在目录的绝对路径
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-
-    # 将相对路径转换为绝对路径
-    save_path = os.path.abspath(os.path.join(base_dir, save_path))
-
-    # 获取目标目录
-    directory = os.path.dirname(save_path)
-
-    # 如果目录不存在，创建目录
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-        print(f"目录 {directory} 已创建。")
-
-    # 打印完整的保存路径以便调试
-    print(f"完整的保存路径: {save_path}")
-
-    # 确保 save_path 是一个完整的文件路径
-    if not save_path.lower().endswith(('.jpg', '.jpeg', '.png', '.bmp')):
-        raise ValueError(f"保存路径必须包含文件名和扩展名，比如 'a.jpg' 或 'a.png'。当前路径: {save_path}")
+    # 获取缩放比例
+    scale = driver.execute_script("return window.devicePixelRatio;")
 
     captcha_element = driver.find_element(by="xpath", value='//div[@class="login-container-codeImg"]//img')
 
-    # 获取验证码元素的坐标,尺寸
+    # 获取验证码元素的真实坐标,尺寸
     location = captcha_element.location
     size = captcha_element.size
-    x, y = location['x'], location['y']
-    width, height = size['width'], size['height']
+    x, y = location['x']*scale, location['y']*scale
+    width, height = size['width']*scale, size['height']*scale
 
     # 截取整个浏览器的截图
     screenshot = driver.get_screenshot_as_png()
@@ -59,12 +38,16 @@ def screenshots(driver):
     captcha_image = image.crop((x, y, x + width, y + height))
 
     # 保存裁剪后的验证码图片
-    captcha_image_path = "../picture/a.jpg"
+    captcha_image_path = "../test_ui_auto/picture/test.jpg"
     captcha_image.save(captcha_image_path)
-    print(f"验证码截图已保存: {captcha_image_path}")
 
-    # 显示裁剪后的验证码图片
-    captcha_image.show()
+    # 识别截取到的图片
+    chaojiying_res = module.chaojiying.Chaojiying_Client('shouhuqingtian', '13691959110', '912169')	#用户中心>>软件ID 生成一个替换 96001
+    im = open('../test_ui_auto/picture/test.jpg', 'rb').read()													#本地图片文件路径 来替换 a.jpg 有时WIN系统须要//
+    print(chaojiying_res.PostPic(im, 1902))
+
+    # # 显示裁剪后的验证码图片
+    # captcha_image.show()
 
 
 

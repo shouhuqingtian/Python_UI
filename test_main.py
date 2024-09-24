@@ -50,7 +50,6 @@ class TestWebsite:
     self.browser.find_element(By.NAME, "verifyCode").send_keys("abcd")
     self.browser.find_element(By.CSS_SELECTOR, "button[data-v-fd4e3d70]").click()
 
-    time.sleep(2)
     # assert menu_popup is not None
 
   def test_navigation_to_all_tools(self):
