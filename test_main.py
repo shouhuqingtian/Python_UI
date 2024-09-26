@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import time
+from time import sleep
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from module import get_verification_code
 from module.get_verification_code import screenshots
 
 
@@ -41,16 +40,18 @@ class TestWebsite:
     """this test checks presence of Developer Tools menu item"""
     tools_menu = self.browser.find_element(By.NAME,
                                            "username")
-
+    # 登录后台管理系统
     tools_menu.send_keys("dev")
-
     menu_popup = self.browser.find_element(By.NAME, "password")
     menu_popup.send_keys("air2021")
-    screenshots(self.browser)
-    self.browser.find_element(By.NAME, "verifyCode").send_keys("abcd")
+    self.browser.find_element(By.NAME, "verifyCode").click()
+    code = screenshots(self.browser)
+    self.browser.find_element(By.NAME, "verifyCode").send_keys(code)
     self.browser.find_element(By.CSS_SELECTOR, "button[data-v-fd4e3d70]").click()
 
-    # assert menu_popup is not None
+    # 验证是否登录成功，登录成功后会显示刷新按钮
+    refresh_button = self.browser.find_element(By.XPATH, "//span[text()='刷新']")
+    assert refresh_button.is_displayed(),  "登录失败，用户头像没有显示。"
 
   def test_navigation_to_all_tools(self):
     """this test checks navigation by See All Tools button"""

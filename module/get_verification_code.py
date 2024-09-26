@@ -6,10 +6,8 @@
 
 import io
 from PIL import Image
+from module.chaojiying import Chaojiying_Client
 
-# from module.chaojiying import Chaojiying_Client
-
-import module.chaojiying
 
 def screenshots(driver):
     """
@@ -42,9 +40,10 @@ def screenshots(driver):
     captcha_image.save(captcha_image_path)
 
     # 识别截取到的图片
-    chaojiying_res = module.chaojiying.Chaojiying_Client('shouhuqingtian', '13691959110', '912169')	#用户中心>>软件ID 生成一个替换 96001
+    chaojiying = Chaojiying_Client('shouhuqingtian', '13691959110', '912169')	#用户中心>>软件ID 生成一个替换 96001
     im = open('../test_ui_auto/picture/test.jpg', 'rb').read()													#本地图片文件路径 来替换 a.jpg 有时WIN系统须要//
-    print(chaojiying_res.PostPic(im, 1902))
+    result = chaojiying.PostPic(im, 1902)
+    return result['pic_str']
 
     # # 显示裁剪后的验证码图片
     # captcha_image.show()
