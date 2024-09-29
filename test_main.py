@@ -47,7 +47,7 @@ class TestWebsite:
     self.browser.find_element(By.NAME, "verifyCode").click()
     code = screenshots(self.browser)
     self.browser.find_element(By.NAME, "verifyCode").send_keys(code)
-    self.browser.find_element(By.CSS_SELECTOR, "button[data-v-fd4e3d70]").click()
+    self.browser.find_element(By.XPATH, "//button/span[text()='Login']").click()
 
     # 验证是否登录成功，登录成功后会显示刷新按钮
     refresh_button = self.browser.find_element(By.XPATH, "//span[text()='刷新']")

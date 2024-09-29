@@ -48,5 +48,3 @@ def screenshots(driver):
     # # 显示裁剪后的验证码图片
     # captcha_image.show()
 
-
-
