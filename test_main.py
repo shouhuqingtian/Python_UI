@@ -5,6 +5,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from module.get_verification_code import screenshots
+from testcase.test__sent_for_repair import test_parts_repair
 
 
 class TestWebsite:
@@ -52,6 +53,9 @@ class TestWebsite:
     # 验证是否登录成功，登录成功后会显示刷新按钮
     refresh_button = self.browser.find_element(By.XPATH, "//span[text()='刷新']")
     assert refresh_button.is_displayed(),  "登录失败，用户头像没有显示。"
+
+    # 执行零部件维修测试用例
+    test_parts_repair(self.browser)
 
   def test_navigation_to_all_tools(self):
     """this test checks navigation by See All Tools button"""
